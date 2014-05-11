@@ -127,7 +127,9 @@
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__)
   #define MEGA
 #endif
-
+#if !defined(PROMICRO) && !defined(MEGA) //Added to help Eclipse indexer know what's going on.
+  #define PROMINI
+#endif
 
 /**************************************************************************************/
 /***************             motor and servo numbers               ********************/
@@ -254,10 +256,10 @@
 /**************************   atmega328P (Promini)  ************************************/
 #if defined(PROMINI)
   #if !defined(MONGOOSE1_0)
-    #define LEDPIN_PINMODE             pinMode (13, OUTPUT);
-    #define LEDPIN_TOGGLE              PINB |= 1<<5;     //switch LEDPIN state (digital PIN 13)
-    #define LEDPIN_OFF                 PORTB &= ~(1<<5);
-    #define LEDPIN_ON                  PORTB |= (1<<5);
+    #define LEDPIN_PINMODE             pinMode (13, OUTPUT); pinMode(5, OUTPUT); pinMode(6, OUTPUT);
+    #define LEDPIN_TOGGLE              PINB |= 1<<5; PIND |=3<<5    //switch LEDPIN state (digital PIN 13)
+    #define LEDPIN_OFF                 PORTB &= ~(1<<5); PORTD &= ~(3<<5);
+    #define LEDPIN_ON                  PORTB |= (1<<5); PORTB |= (3<<5);
   #endif
   #if !defined(RCAUXPIN8) 
     #if !defined(MONGOOSE1_0)
