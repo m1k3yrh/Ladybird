@@ -1419,20 +1419,25 @@ void mixTable() {
   #endif
   /****************                normalize the Motors values                ******************/
     maxMotor=motor[0];
-    for(i=1; i< NUMBER_MOTOR; i++)
-      if (motor[i]>maxMotor) maxMotor=motor[i];
+    for(i=1; i< NUMBER_MOTOR; i++) {
+      if (motor[i]>maxMotor) {
+    	  maxMotor=motor[i];
+      }
+    }
     for(i=0; i< NUMBER_MOTOR; i++) {
-      if (maxMotor > MAXTHROTTLE) // this is a way to still have good gyro corrections if at least one motor reaches its max.
+      if (maxMotor > MAXTHROTTLE) { // this is a way to still have good gyro corrections if at least one motor reaches its max.
         motor[i] -= maxMotor - MAXTHROTTLE;
+      }
       motor[i] = constrain(motor[i], conf.minthrottle, MAXTHROTTLE);
-      if ((rcData[THROTTLE] < MINCHECK) && !f.BARO_MODE)
-      #ifndef MOTOR_STOP
-        motor[i] = conf.minthrottle;
-      #else
-        motor[i] = MINCOMMAND;
-      #endif
-      if (!f.ARMED)
-        motor[i] = MINCOMMAND;
+      if ((rcData[THROTTLE] < MINCHECK) && !f.BARO_MODE) {
+		  #ifndef MOTOR_STOP
+			motor[i] = conf.minthrottle;
+		  #else
+			motor[i] = MINCOMMAND;
+		  #endif
+		  if (!f.ARMED)
+			motor[i] = MINCOMMAND;
+      }
     }
 
   /****************                      Powermeter Log                    ******************/
