@@ -1435,9 +1435,9 @@ void mixTable() {
 		  #else
 			motor[i] = MINCOMMAND;
 		  #endif
-		  if (!f.ARMED)
-			motor[i] = MINCOMMAND;
       }
+	  if (!f.ARMED)
+		motor[i] = MINCOMMAND;
     }
 
   /****************                      Powermeter Log                    ******************/
